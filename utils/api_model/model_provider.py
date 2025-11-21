@@ -952,6 +952,14 @@ API_MAPPINGS = {
         context_window=200000,
         openrouter_config={"provider": {"only": ["anthropic"]}}
     ),
+    'gemini-3-pro-preview': Dict(
+        api_model={"openrouter": "google/gemini-3-pro-preview",
+                   },
+        price=[0.002, 0.012],
+        concurrency=32,
+        context_window=1000000,
+        openrouter_config={"provider": {"only": ["google-vertex"]}}
+    ),
     'gemini-2.5-pro': Dict(
         api_model={"aihubmix": "gemini-2.5-pro",
                    "openrouter": "google/gemini-2.5-pro",
