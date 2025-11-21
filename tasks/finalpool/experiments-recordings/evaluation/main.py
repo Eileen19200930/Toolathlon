@@ -391,7 +391,7 @@ def main():
         print("  - page_id")
         print(f"Current token object attributes: {[attr for attr in dir(tokens) if not attr.startswith('_')]}")
         print(json.dumps({"ok": False, "reason": "missing page_id in token config"}, ensure_ascii=False))
-        return
+        raise RuntimeError("missing page_id in token config")
     
     # Find database ID(s) using debug_notion.py
     try:
@@ -399,7 +399,7 @@ def main():
         
         if not database_ids:
             print(json.dumps({"ok": False, "reason": "no database found in page", "page_id": page_id}, ensure_ascii=False))
-            return
+            raise RuntimeError("no database found in page")
         
         # If multiple databases are found, use the first one
         db_id = database_ids[0]
@@ -410,7 +410,7 @@ def main():
         
     except Exception as e:
         print(json.dumps({"ok": False, "reason": f"failed to find database: {str(e)}", "page_id": page_id}, ensure_ascii=False))
-        return
+        raise RuntimeError(f"failed to find database: {str(e)}")
     
     # Query database content
     pages = notion_query_database(notion_token, db_id)
